@@ -1,0 +1,24 @@
+.col {
+  padding-top: 10px;
+}
+.logoBox {
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.logoBox > img {
+  width: 75%;
+}
+.logoBox > p {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.firstCol > button {
+  float: right;
+}
+.buttonDiv > button {
+  margin: auto;
+}
+.buttonHolder > button {
+  margin: 0 auto;
+}

@@ -1,0 +1,79 @@
+import React, { useEffect, useState } from "react";
+import { Col, Row } from "reactstrap";
+
+import {
+  useUserDocuments,
+} from "../../../../../core/services/api";
+import { FallBackSpinner } from "../../../../common/Spinner/FallBackSpinner/FallbackSpinner";
+import { ListTablePaginate } from "../../../../common/ListTablePaginate/ListTablePaginate";
+import { columns } from "./Column";
+
+interface IPropTypes {
+  refetchFromUpload: boolean;
+}
+
+const DocumentsTable: React.FC<IPropTypes> = ({ refetchFromUpload }) => {
+  const [pageCount, setPageCount] = useState(1);
+  const [pageSize, setPageSize] = useState<any>(10);
+  const [tableData, setTableData] = useState<any>([]);
+
+  const {  data, isFetching, refetch } =
+    useUserDocuments();
+
+  useEffect(() => {
+    refetch();
+  }, [refetchFromUpload]);
+
+  useEffect(() => {
+    let newData: any = [];
+    if (data && data.data.result) {
+      data.data.result.forEach((doc: any) => {
+        newData.push({
+          id: doc.id,
+          documentId: doc.documentId,
+          categoryTitle: doc.categoryTitle,
+          documentTitle: doc.documentTitle,
+          description: doc.description,
+        });
+      });
+      setTableData(newData);
+    }
+  }, [data]);
+
+  return (
+    <>
+      {isFetching ? (
+        <>
+          <FallBackSpinner />
+        </>
+      ) : (
+        <>
+          <Row style={{ marginTop: "14px" }}>
+            <Col>
+              <ListTablePaginate
+                columns={columns}
+                setPageCountList={setPageCount}
+                isLoading={false}
+                onPageChange={() => {}}
+                pageCountList={pageCount}
+                customPageSize={pageSize}
+                getCustomProps={{
+                  setTableData,
+                  tableData,
+                  refetch,
+                }}
+                tableData={tableData}
+              >
+                {{
+                  headerTable: <></>,
+                }}
+              </ListTablePaginate>
+            </Col>
+          </Row>
+        </>
+      )}
+    </>
+  );
+};
+
+export { DocumentsTable };

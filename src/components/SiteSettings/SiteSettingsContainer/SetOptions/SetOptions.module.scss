@@ -1,0 +1,12 @@
+.logoBox {
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+.logoBox > img {
+  width: 200px;
+}
+.logoBox > p {
+  margin-top: 10px;
+  font-size: 18px;
+}

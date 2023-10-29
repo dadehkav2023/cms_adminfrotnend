@@ -1,0 +1,7 @@
+.buttonCase {
+  //   display: none;
+  text-align: center;
+}
+.itemContainer:hover > .buttonCase {
+  display: block;
+}
