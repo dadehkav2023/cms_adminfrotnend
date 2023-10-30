@@ -19,6 +19,9 @@ interface IPropTypes {
   file: string;
   setFieldValue: (val: any) => void;
   fileType: string;
+
+  aspect?: number; //crop
+
 }
 
 const CropModal: FC<IPropTypes> = ({
@@ -27,6 +30,8 @@ const CropModal: FC<IPropTypes> = ({
   file,
   setFieldValue,
   fileType,
+  aspect = 1, //crop
+
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [rotation, setRotation] = useState(0);
@@ -64,7 +69,9 @@ const CropModal: FC<IPropTypes> = ({
             image={file}
             crop={crop}
             zoom={zoom}
-            aspect={4 / 4}
+
+            aspect={aspect || 4 / 4} //crop
+
             onCropChange={setCrop}
             onRotationChange={setRotation}
             onCropComplete={onCropComplete}

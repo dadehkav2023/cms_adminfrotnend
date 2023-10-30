@@ -11,7 +11,7 @@ import { SimpleSubmitButton } from "../..";
 import Styles from "./CropModalSlider.module.scss";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import getCroppedImgSlider from "./CroppImageSlider";
+import getCroppedImg from "../CropModal/CroppImage";
 
 interface IPropTypes {
   isOpen: boolean;
@@ -40,7 +40,7 @@ const CropModalSlider: FC<IPropTypes> = ({
 
   const showCroppedImage = useCallback(async () => {
     try {
-      const croppedImage: any = await getCroppedImgSlider(
+      const croppedImage: any = await getCroppedImg(
         file,
         croppedAreaPixels,
         rotation

@@ -6,6 +6,7 @@ import { InpuLable } from "../InputComponents/InputLable/InputLable";
 import Styled from "./DropZone.module.scss";
 import { Delete } from "react-feather";
 import { CropModalSlider } from "../ProfileDropZone/CropModalSlider/CropModalSlider";
+import { CropModal } from "../ProfileDropZone/CropModal/CropModal";
 
 export interface DropZoneProps {
   name: string;
@@ -17,9 +18,14 @@ export interface DropZoneProps {
   accept?: string;
   removeServedFiles?: () => void;
   hasImage?: any;
+
+  aspect: number;
 }
 
 const DropZone: React.FC<DropZoneProps> = ({
+
+  aspect,
+
   lableText,
   placeholder,
   significant = false,
@@ -101,12 +107,14 @@ const DropZone: React.FC<DropZoneProps> = ({
           }: any) => {
             return (
               <>
-                <CropModalSlider
+                <CropModal
                   file={fileUrl}
                   isOpen={fileUrl ? true : false}
                   setFieldValue={(val) => setFieldValue(name, val)}
                   toggle={() => setFileUrl(null)}
                   fileType={fileType}
+                  
+                 aspect={4/2}
                 />
                 <Dropzone
                   multiple={false}
