@@ -5,7 +5,6 @@ import Dropzone from "react-dropzone";
 import { InpuLable } from "../InputComponents/InputLable/InputLable";
 import Styled from "./DropZone.module.scss";
 import { Delete } from "react-feather";
-import { CropModalSlider } from "../ProfileDropZone/CropModalSlider/CropModalSlider";
 import { CropModal } from "../ProfileDropZone/CropModal/CropModal";
 
 export interface DropZoneProps {
@@ -18,14 +17,11 @@ export interface DropZoneProps {
   accept?: string;
   removeServedFiles?: () => void;
   hasImage?: any;
-
   aspect: number;
 }
 
 const DropZone: React.FC<DropZoneProps> = ({
-
   aspect,
-
   lableText,
   placeholder,
   significant = false,
@@ -84,18 +80,9 @@ const DropZone: React.FC<DropZoneProps> = ({
     }
   };
 
-  const [fileUrl, setFileUrl] = React.useState<any>(""); 
+  const [fileUrl, setFileUrl] = React.useState<any>("");
   const [fileType, setFileType] = React.useState<string>("");
-  const [image, setImage] = React.useState<any>(null);
-  const onSelectFile = (event: any) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
-      reader.addEventListener("load", () => {
-        setImage(reader.result);
-      });
-    }
-  };
+
   return (
     <>
       <FormGroup>
@@ -113,8 +100,7 @@ const DropZone: React.FC<DropZoneProps> = ({
                   setFieldValue={(val) => setFieldValue(name, val)}
                   toggle={() => setFileUrl(null)}
                   fileType={fileType}
-                  
-                 aspect={4/2}
+                  aspect={4 / 2}
                 />
                 <Dropzone
                   multiple={false}
@@ -149,14 +135,14 @@ const DropZone: React.FC<DropZoneProps> = ({
                               ? (e) => {
                                   setFieldValue(name, e.target.files);
                                   toggleModal();
-                                  onSelectFile(e);
+
                                   if (removeServedFiles) {
                                     removeServedFiles();
                                   }
                                 }
                               : (e) => {
                                   setFieldValue(name, e.target.files);
-                                  onSelectFile(e);
+
                                   if (removeServedFiles) {
                                     removeServedFiles();
                                   }
