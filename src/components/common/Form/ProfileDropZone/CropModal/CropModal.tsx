@@ -30,7 +30,7 @@ const CropModal: FC<IPropTypes> = ({
   file,
   setFieldValue,
   fileType,
-  aspect = 1, //crop
+  aspect = 4/4, //crop
 
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -70,7 +70,7 @@ const CropModal: FC<IPropTypes> = ({
             crop={crop}
             zoom={zoom}
 
-            aspect={aspect || 4 / 4} //crop
+            aspect={aspect} //crop
 
             onCropChange={setCrop}
             onRotationChange={setRotation}
