@@ -2,11 +2,10 @@ import * as React from "react";
 import { ErrorMessage, Field } from "formik";
 import { FormGroup, Button, Row, Col } from "reactstrap";
 import Dropzone from "react-dropzone";
-
 import { InpuLable } from "../InputComponents/InputLable/InputLable";
-
 import Styled from "./DropZone.module.scss";
 import { Delete } from "react-feather";
+import { CropModalSlider } from "../ProfileDropZone/CropModalSlider/CropModalSlider";
 
 export interface DropZoneProps {
   name: string;
@@ -79,6 +78,18 @@ const DropZone: React.FC<DropZoneProps> = ({
     }
   };
 
+  const [fileUrl, setFileUrl] = React.useState<any>(""); 
+  const [fileType, setFileType] = React.useState<string>("");
+  const [image, setImage] = React.useState<any>(null);
+  const onSelectFile = (event: any) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.addEventListener("load", () => {
+        setImage(reader.result);
+      });
+    }
+  };
   return (
     <>
       <FormGroup>
@@ -90,29 +101,30 @@ const DropZone: React.FC<DropZoneProps> = ({
           }: any) => {
             return (
               <>
+                <CropModalSlider
+                  file={fileUrl}
+                  isOpen={fileUrl ? true : false}
+                  setFieldValue={(val) => setFieldValue(name, val)}
+                  toggle={() => setFileUrl(null)}
+                  fileType={fileType}
+                />
                 <Dropzone
-                  multiple={!isSingle}
+                  multiple={false}
                   accept={
                     accept
                       ? accept
-                      : "image/jpeg, image/png, image/jpg, image/tif,image/tiff, application/pdf"
+                      : "image/jpeg, image/png, image/jpg, image/tif,image/tiff"
                   }
-                  onDrop={
-                    toggleModal
-                      ? (acceptedFiles) => {
-                          setFieldValue(name, acceptedFiles);
-                          toggleModal();
-                          if (removeServedFiles) {
-                            removeServedFiles();
-                          }
-                        }
-                      : (acceptedFiles) => {
-                          setFieldValue(name, acceptedFiles);
-                          if (removeServedFiles) {
-                            removeServedFiles();
-                          }
-                        }
-                  }
+                  onDrop={(acceptedFiles) => {
+                    const file = acceptedFiles[0];
+                    const type: any = file.name.split(".").pop();
+                    setFileType(type);
+                    const reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onloadend = () => {
+                      setFileUrl(reader.result);
+                    };
+                  }}
                 >
                   {({ getRootProps, getInputProps }) => (
                     <section
@@ -123,25 +135,34 @@ const DropZone: React.FC<DropZoneProps> = ({
                       }
                     >
                       <div {...getRootProps()}>
-                        <input {...getInputProps()} />
+                        <input
+                          onChange={
+                            toggleModal
+                              ? (e) => {
+                                  setFieldValue(name, e.target.files);
+                                  toggleModal();
+                                  onSelectFile(e);
+                                  if (removeServedFiles) {
+                                    removeServedFiles();
+                                  }
+                                }
+                              : (e) => {
+                                  setFieldValue(name, e.target.files);
+                                  onSelectFile(e);
+                                  if (removeServedFiles) {
+                                    removeServedFiles();
+                                  }
+                                }
+                          }
+                          {...getInputProps()}
+                        />
                         <div className={Styled.dropZoneContainer}>
                           <div className={Styled.insideHolder}>
-                            {hasImage ? (
-                              <img
-                                src={hasImage}
-                                alt="product"
-                                width="100%"
-                                height="100%"
-                                style={{ cursor: "pointer" }}
-                                onClick={() => {}}
-                              />
-                            ) : (
-                              <p>
-                                {placeholder
-                                  ? placeholder
-                                  : "فایل ها را بکشید و اینجا رها کنید ..."}
-                              </p>
-                            )}
+                            <p>
+                              {placeholder
+                                ? placeholder
+                                : "فایل ها را بکشید و اینجا رها کنید ..."}
+                            </p>
                           </div>
                           <div>
                             <Button
