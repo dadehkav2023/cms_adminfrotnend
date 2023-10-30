@@ -271,13 +271,13 @@ class NavbarUser extends React.PureComponent {
 
   componentDidMount() {
     switch (true) {
-      case this.state.role.includes(UserRoles.Admin):
+      case this.state.role?.includes(UserRoles.Admin):
         this.setState({ roleName: "ادمین" });
         break;
-      case this.state.role.includes(UserRoles.UserReal):
+      case this.state.role?.includes(UserRoles.UserReal):
         this.setState({ roleName: "کاربر حقیقی" });
         break;
-      case this.state.role.includes(UserRoles.UserLegal):
+      case this.state.role?.includes(UserRoles.UserLegal):
         this.setState({ roleName: "کاربر حقوقی" });
         break;
       default:
