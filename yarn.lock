@@ -11984,10 +11984,6 @@ react-data-table-component@^6.2.3:
     lodash.orderby "^4.6.0"
     shortid "^2.2.16"
 
-react-detect-offline@^2.4.5:
-  version "2.4.5"
-  resolved "https://registry.npmjs.org/react-detect-offline/-/react-detect-offline-2.4.5.tgz"
-  integrity sha512-sI13NPEKl3uQp95FT5CwrYzH3DnXCwNP6TnY6NRF5gFDM4NU9KDlbtA6HG2dwhDVS0RYQGXwZW/mHbdf8fCnaw==
 
 react-dev-utils@^11.0.0:
   version "11.0.4"

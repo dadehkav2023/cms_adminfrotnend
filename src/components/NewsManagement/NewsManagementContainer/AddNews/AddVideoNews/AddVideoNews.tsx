@@ -19,6 +19,7 @@ import {
   NewsType,
 } from "../../../../../core/enums";
 import { UseGetCategories } from "../../../../../core/services/api/get-news-categories.api";
+
 import RichTextEditor from "../../../../common/Form/RichTextEditor/RichTextEditor";
 import { UseAddNews } from "../../../../../core/services/api/add-news.api";
 import { AddMediaNewsValidation } from "../../../../../core/validations/add-media-news.validations";
