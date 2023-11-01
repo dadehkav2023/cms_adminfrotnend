@@ -27,16 +27,16 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 } else {
   config = {
     // the URL of our identity server
-    authority: "https://sso.dev.agroom.org/",
+    authority: "https://sso.sabak.org/",
     // this ID maps to the client ID in the identity client configuration
-    client_id: "admin.dev.agroom.org",
+    client_id: "admin.agroom.org",
     // URL to redirect to after login
-    redirect_uri: "https://admin.dev.agroom.org/signin-oidc",
+    redirect_uri: "https://admin.agroom.org/signin-oidc",
     response_type: "code",
     // the scopes or resources we would like access to
     scope: "openid profile api1 role offline_access",
     // URL to redirect to after logout
-    post_logout_redirect_uri: "https://admin.dev.agroom.org/Register/",
+    post_logout_redirect_uri: "https://admin.agroom.org/Register/",
     //silent_redirect_uri: window.location.pathname,
     //automaticSilentRenew: true,
     userStore: new WebStorageStateStore({ store: localStorage }),
