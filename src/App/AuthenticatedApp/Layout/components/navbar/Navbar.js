@@ -6,7 +6,7 @@ import NavbarBookmarks from "./NavbarBookmarks";
 import { useUserAuth } from "../../../../../core/utils/context/AuthenticationContext";
 import { profileContext } from "../../../../../core/utils/context/ProfileContext";
 import { LoadProfile } from "./LoadProfile";
-import { Offline, Detector } from "react-detect-offline";
+// import { Offline, Detector } from "react-detect-offline";
 
 const ThemeNavbar = (props) => {
   const colorsArr = ["primary", "danger", "success", "info", "warning", "dark"];
@@ -62,7 +62,7 @@ const ThemeNavbar = (props) => {
               className="navbar-collapse d-flex justify-content-between align-items-center"
               id="navbar-mobile"
             >
-              <Offline>شما دسترسی به اینترنت ندارید...</Offline>
+              {/* <Offline>شما دسترسی به اینترنت ندارید...</Offline> */}
               <div className="bookmark-wrapper">
                 <NavbarBookmarks sidebarVisibility={props.sidebarVisibility} />
               </div>
