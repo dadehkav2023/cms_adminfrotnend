@@ -374,7 +374,7 @@ const AddTextNews: React.FC<AddTextNewsProps> = () => {
                     significant
                     placeholder="عکس خبر"
                     isSingle={true}
-                    accept="image/jpeg, image/png, image/jpg"
+                    accept="image/jpeg, image/png, image/jpg ,image/jfif"
                   />
 
                   <RichTextEditor

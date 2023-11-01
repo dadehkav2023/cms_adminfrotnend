@@ -107,7 +107,7 @@ const DropZone: React.FC<DropZoneProps> = ({
                   accept={
                     accept
                       ? accept
-                      : "image/jpeg, image/png, image/jpg, image/tif,image/tiff"
+                      : "image/jpeg, image/png, image/jpg, image/tif,image/tiff ,image/jfif"
                   }
                   onDrop={(acceptedFiles) => {
                     const file = acceptedFiles[0];
