@@ -1,68 +1,32 @@
-import { renewAccessToken } from "./../../utils/date-helper.utils";
-import {
-  UserManagerSettings,
-  UserManager,
-  WebStorageStateStore,
-} from "oidc-client";
+import { renewAccessToken } from './../../utils/date-helper.utils';
+import { UserManagerSettings, UserManager, WebStorageStateStore } from 'oidc-client';
 
 let config: UserManagerSettings = {};
 
-if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
-  config = {
-    // the URL of our identity server
-    authority: "https://sso.dev.agroom.org/",
-    // this ID maps to the client ID in the identity client configuration
-    client_id: "localhost:6002",
-    // URL to redirect to after login
-    redirect_uri: "https://localhost:6002/signin-oidc",
-    response_type: "code",
-    // the scopes or resources we would like access to
-    scope: "openid profile api1 role offline_access",
-    // URL to redirect to after logout
-    post_logout_redirect_uri: "https://localhost:6002/Register/",
-    //silent_redirect_uri: window.location.pathname,
-    //automaticSilentRenew: true,
-    userStore: new WebStorageStateStore({ store: localStorage }),
-  };
-} else {
-  config = {
-    // the URL of our identity server
-    authority: "https://sso.dev.agroom.org/",
-    // this ID maps to the client ID in the identity client configuration
-    client_id: "admin.dev.agroom.org",
-    // URL to redirect to after login
-    redirect_uri: "https://admin.dev.agroom.org/signin-oidc",
-    response_type: "code",
-    // the scopes or resources we would like access to
-    scope: "openid profile api1 role offline_access",
-    // URL to redirect to after logout
-    post_logout_redirect_uri: "https://admin.dev.agroom.org/Register/",
-    //silent_redirect_uri: window.location.pathname,
-    //automaticSilentRenew: true,
-    userStore: new WebStorageStateStore({ store: localStorage }),
-  };
-}
+// Determine the environment
+const isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
-// config = {
-//   // the URL of our identity server
-//   authority: "https://sso.sabakorg.ir/",
-//   // this ID maps to the client ID in the identity client configuration
-//   client_id: "Sabakorg",
-//   // URL to redirect to after login
-//   redirect_uri: "https://sabakorg.ir/signin-oidc",
-//   response_type: "code",
-//   // the scopes or resources we would like access to
-//   scope: "openid profile api1 role offline_access",
-//   // URL to redirect to after logout
-//   post_logout_redirect_uri: "https://sabakorg.ir/Register/",
-//   //silent_redirect_uri: window.location.pathname,
-//   //automaticSilentRenew: true,
-// };
+config = {
+  // the URL of our identity server
+  authority: process.env.REACT_APP_AUTHORITY,
+  // this ID maps to the client ID in the identity client configuration
+  client_id: process.env.REACT_APP_CLIENT_ID,
+  // URL to redirect to after login
+  redirect_uri: process.env.REACT_APP_REDIRECT_URI,
+  response_type: process.env.REACT_APP_RESPONSE_TYPE,
+  // the scopes or resources we would like access to
+  scope: process.env.REACT_APP_SCOPE,
+  // URL to redirect to after logout
+  post_logout_redirect_uri: process.env.REACT_APP_POST_LOGOUT_REDIRECT_URI,
+  //silent_redirect_uri: window.location.pathname,
+  //automaticSilentRenew: true,
+  userStore: new WebStorageStateStore({ store: localStorage }),
+};
 
 const userManager = new UserManager(config);
 
 userManager.events.addAccessTokenExpiring(async function () {
-  console.log("Access token expiring...");
+  console.log('Access token expiring...');
   await renewAccessToken();
 });
 
