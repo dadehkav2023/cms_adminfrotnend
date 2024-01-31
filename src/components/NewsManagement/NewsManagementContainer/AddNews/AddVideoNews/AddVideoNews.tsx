@@ -1,18 +1,17 @@
 import React, { useState } from "react";
-import { Alert, Container, Row, Col } from "reactstrap";
-import { Formik, Form, FieldArray, ErrorMessage } from "formik";
+import { Alert, Col, Container, Row } from "reactstrap";
 import { useHistory } from "react-router-dom";
+import { ErrorMessage, FieldArray, Form, Formik } from "formik";
 import {
+  FieldWrapper,
   FormDivider,
+  InpuLable,
+  ModernDatePicker,
   SimpleSubmitButton,
   TextInput,
-  DropZone,
-  ModernDatePicker,
-  InpuLable,
 } from "../../../../common/Form";
 import { TwoColumn } from "../../../../common/Wrapper/ColumnWrapper/TwoColumn/TwoColumn";
 import { FallBackSpinner } from "../../../../common/Spinner/FallBackSpinner/FallbackSpinner";
-import { FieldWrapper } from "../../../../common/Form";
 import BasicSelectOption from "../../../../common/Form/SelectOptionComponent/BasicSelectOption/BasicSelectOption";
 import {
   NewsContentType,
@@ -20,17 +19,19 @@ import {
   NewsType,
 } from "../../../../../core/enums";
 import { UseGetCategories } from "../../../../../core/services/api/get-news-categories.api";
+
 import RichTextEditor from "../../../../common/Form/RichTextEditor/RichTextEditor";
 import { UseAddNews } from "../../../../../core/services/api/add-news.api";
-import TreeColumn from "../../../../common/Wrapper/ColumnWrapper/ThreeColumn/ThreeColumn";
 import { AddMediaNewsValidation } from "../../../../../core/validations/add-media-news.validations";
+import TreeColumn from "../../../../common/Wrapper/ColumnWrapper/ThreeColumn/ThreeColumn";
+import VideoSelector from "./VideoSelector/VideoSelector";
 interface AddVideoNewsProps {}
-
 const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
   const history = useHistory();
   const [initialValues, setInitialValues] = useState({
     Title: "",
     IsActive: { value: 1, label: "فعال" },
+    ShowInMainPage: { value: 1, label: "نمایش" },
     HeadTitle: "",
     Subtitle: "",
     SummaryTitle: "",
@@ -62,6 +63,7 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
       NewsPriority: +values.NewsPriority.value,
       ImagePath: values.ImagePath[0] ? values.ImagePath[0] : null,
       IsActive: values.IsActive.value === 1 ? true : false,
+      ShowInMainPage: values.ShowInMainPage.value === 1 ? true : false,
       CategoriesId: values.CategoriesId ? values.CategoriesId : [],
     });
   };
@@ -144,7 +146,6 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
                         }}
                       />
                     </div>
-
                     <div>
                       <BasicSelectOption
                         lableText="وضعیت خبر"
@@ -162,7 +163,6 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
                         ]}
                       />
                     </div>
-
                     <div>
                       <TextInput
                         lableText="تیتر خبر"
@@ -172,7 +172,6 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
                       />
                     </div>
                   </TreeColumn>
-
                   <TwoColumn>
                     <div role="group" aria-labelledby="checkbox-group">
                       <InpuLable lableText="دسته بندی های مربوطه" significant />
@@ -235,14 +234,12 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
                       />
                     </div>
                   </TwoColumn>
-                  <DropZone
-                    lableText="عکس خبر"
-                    name="ImagePath"
-                    significant
-                    placeholder="عکس خبر"
-                    isSingle={true}
-                    accept="image/jpeg, image/png, image/jpg"
-                  />
+                  <div>
+                    <VideoSelector
+                      name="ImagePath"
+                      onVideoSelected={setFieldValue}
+                    />
+                  </div>
                   <RichTextEditor
                     name="Summary"
                     title="خلاصه خبر"
@@ -265,5 +262,4 @@ const AddVideoNews: React.FC<AddVideoNewsProps> = () => {
     </>
   );
 };
-
 export { AddVideoNews };

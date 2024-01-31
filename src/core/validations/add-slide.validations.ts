@@ -9,7 +9,21 @@ export const AddSlideValidation = Yup.object({
   ),
   StartDateTimeShow: Yup.string(),
   EndDateTimeShow: Yup.string(),
-  LinkAddress: Yup.string(),
+
+  LinkAddress:Yup.string()
+  .required("آدرس را با '//:http' و '//:https' وارد کنید")
+  .transform((value, originalValue) => {
+    if (originalValue.startsWith('https')) {
+      return `https://${value}`;
+    } else if (originalValue.startsWith('http')) {
+      return `http://${value}`;
+    }
+    return value;
+  })
+  .matches(/^(https?)/,  " آدرس لینک باید با '//:https' و '//:https' وارد شود")
+  ,
+   
+
   SortOrder: Yup.object().test(
     "",
     "یک گزینه انتخاب کنید",
