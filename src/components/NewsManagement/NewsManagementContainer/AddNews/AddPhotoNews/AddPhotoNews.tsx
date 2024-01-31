@@ -33,6 +33,7 @@ const AddPhotoNews: React.FC<AddPhotoNewsProps> = () => {
     Title: "",
     IsActive: { value: 1, label: "فعال" },
     HeadTitle: "",
+    ShowInMainPage:true,
     Subtitle: "",
     SummaryTitle: "",
     Summary: "",
