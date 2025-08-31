@@ -91,10 +91,9 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "cross-env npm run copyenv && react-app-rewired build",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject",
-    "copyenv": "cp .env.production .env || copy .env.production .env"
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": [
